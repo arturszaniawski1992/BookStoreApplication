@@ -8,4 +8,9 @@ public final class ModelConstants implements Serializable {
 
 	public static final String MESSAGE = "message";
 	public static final String INFO = "info";
+	public static final String BOOKLIST = "bookList";
+
+	// nazwywa sie tak jak widok!!!
+	public static final String BOOKBYTITLE = "booksByTitle";
+	public static final String BOOKBYAUTHOR = "booksByAuthor";
 }
