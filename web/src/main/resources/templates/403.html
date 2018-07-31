@@ -1,20 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
+<html lang="en">
+
 <head>
-    <title>Access denied</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>403</title>
+    
+
+
 </head>
-<body>
-<div layout:fragment="content" th:remove="tag">
-<section>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>Error</h1>
-            <p>${error}</p>
+
+<body class="error">
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2 text-center">
+            <div class="logo">
+                <h1>Access denied!</h1>
+            </div>
+            <p class="lead text-muted">Sorry, you do not have access in here! Back to HomePage!</p>
+            <div class="clearfix"></div>
+            <div class="col-lg-6 col-lg-offset-3">
+                <form action="index.html">
+              
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        
+            <br>
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="btn-group btn-group-justified">
+                  <p><a href="/" th:href="@{/}">Home</a></p>
+                </div>
+            </div>
         </div>
+
     </div>
-</section>
-</div>
 </body>
+
 </html>

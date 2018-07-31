@@ -77,7 +77,10 @@
 
 	</dependencies>
 
-
+	<http auto-config="true">
+		<access-denied-handler error-page="/403" />
+		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+	</http>
 
 
 	<build>

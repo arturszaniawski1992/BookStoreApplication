@@ -58,7 +58,7 @@ public class BookServiceImpl implements BookService {
 		return BookMapper.map(bookRepository.getOne(id));
 	}
 
-	
+
 
 
 }

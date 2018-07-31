@@ -12,8 +12,9 @@ public final class ModelConstants implements Serializable {
 
 	public static final String BOOKBYTITLE = "booksByTitle";
 	public static final String BOOKBYAUTHOR = "booksByAuthor";
-	public static final String REMOVEBOOK = "removeBook";
+	public static final String REMOVEBOOK = "bookWasRemoved";
 	public static final String ERRORMESSAGE = "errorMessage";
 	public static final String BOOK = "book";
+
 	
 }
