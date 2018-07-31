@@ -6,10 +6,16 @@ import pl.jstk.to.BookTo;
 
 public interface BookService {
 
-    List<BookTo> findAllBooks();
-    List<BookTo> findBooksByTitle(String title);
-    List<BookTo> findBooksByAuthor(String author);
+	List<BookTo> findAllBooks();
 
-    BookTo saveBook(BookTo book);
-    void deleteBook(Long id);
+	List<BookTo> findBooksByTitle(String title);
+
+	List<BookTo> findBooksByAuthor(String author);
+
+	BookTo saveBook(BookTo book);
+
+	void deleteBook(Long id);
+	
+	BookTo getBookById(Long id);
+
 }

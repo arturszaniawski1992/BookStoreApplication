@@ -12,6 +12,7 @@
 				<div class="container">
 					<h1>Books</h1>
 					<p>This page contains all informations about books</p>
+					<p th:text="${bookadded}"></p>
 				</div>
 			</div>
 		</section>
@@ -31,14 +32,12 @@
 										class="btn btn-primary"> <span
 										class="glyphicon-info-sign glyphicon" /></span> Details
 
-									</a> 
-									
-									<a th:href="@{'/books/remove/book?id='+${book.id}}"
+									</a> <a th:href="@{'/books/remove/book?id='+${book.id}}"
 										class="btn btn-danger"> <span
 										class="glyphicon-info-sign glyphicon" /></span> Remove
 
-									</a> 
-								
+									</a>
+
 
 
 								</p>

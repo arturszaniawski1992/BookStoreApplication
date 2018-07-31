@@ -18,6 +18,8 @@ import pl.jstk.to.BookTo;
 @Controller
 
 public class BookController {
+	protected static final String ADDBOOK = "Boos has been added!";
+	protected static final String REMOVEDBOOK = "Book has been removed!";
 
 	@Autowired
 	BookService bookService;
@@ -30,13 +32,31 @@ public class BookController {
 
 	}
 
-	// czy tutaj moze byc ten GET czy musi byc DELETE
 	@RequestMapping(value = "/books/remove/{bookId}", method = RequestMethod.GET)
 	public String deleteBook(@RequestParam("id") Long id, Model model) {
 		bookService.deleteBook(id);
 		return findAllBooks(model);
 
 	}
+	
+	@RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
+	public String showBook(@RequestParam(value = "id", defaultValue = "") Long id, Model model) {
+
+		BookTo bookById = bookService.getBookById(id);
+		
+		model.addAttribute(ModelConstants.BOOK, bookById);
+
+		return ViewNames.BOOK;
+	}
+
+	/*@RequestMapping(value = "/books/{bookId}", method = RequestMethod.GET)
+	public String findBooksById(@RequestParam("id") Long id, Model model) {
+		bookService.getBookById(id);
+		return ViewNames.BOOKS;
+
+
+	}*/
+
 
 	@RequestMapping(value = "/books/add", method = RequestMethod.GET)
 	public String addBookToCollection(Model model) {
@@ -48,28 +68,28 @@ public class BookController {
 	public String saveBook(@ModelAttribute BookTo bookTo, Model model) {
 		model.addAttribute("newBook", new BookTo());
 		bookService.saveBook(bookTo);
-		//String message = "Book has been added successfully!";
-		return findAllBooks(model);
 
-		// return ViewNames.BOOKS;
+		return findAllBooks(model);
 
 	}
 
-	/*
-	 * @RequestMapping(value = "/{title}", method = RequestMethod.GET) public
-	 * String findBooksByTitle(@RequestParam("title") String title, Model model)
-	 * { List<BookTo> booksFoundByTitle = bookService.findBooksByTitle(title);
-	 * model.addAttribute(ModelConstants.BOOKBYTITLE, booksFoundByTitle); return
-	 * ViewNames.BOOKS;`` }
-	 * 
-	 * @RequestMapping(value = "/{author}", method = RequestMethod.GET) public
-	 * String findBooksByAuthor(@RequestParam("author") String author, Model
-	 * model) { List<BookTo> booksFoundByAuthor =
-	 * bookService.findBooksByAuthor(author);
-	 * model.addAttribute(ModelConstants.BOOKBYAUTHOR, booksFoundByAuthor);
-	 * return ViewNames.BOOKS;
-	 * 
-	 * }
-	 */
+	@RequestMapping(value = "/books/find", method = RequestMethod.GET)
+	public String findBook(Model model) {
+		model.addAttribute("findBook", new BookTo());
+		return "findBook";
+	}
 
+	@RequestMapping(value = "/findBook", method = RequestMethod.GET)
+	public List<BookTo> findBookByTitleOrAuthor(@RequestParam(value = "title", required = false) String title,
+			@RequestParam(value = "author", required = false) String author) {
+		List<BookTo> listOfAllBooks = bookService.findAllBooks();
+		if (title != "" && author == "") {
+			List<BookTo> listByTitle = bookService.findBooksByTitle(title);
+			return listByTitle;
+		} else if (title == " " && author != " ") {
+			List<BookTo> listByAuthor=bookService.findBooksByAuthor(author);
+			return listByAuthor;
+
+		} else return listOfAllBooks;
+	}
 }

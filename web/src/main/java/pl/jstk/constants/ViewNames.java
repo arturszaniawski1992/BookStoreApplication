@@ -10,5 +10,6 @@ public final class ViewNames implements Serializable {
 	public static final String LOGIN = "login";
 	public static final String WELCOME = "welcome";
 
+	public static final String BOOK = "book";
 
-}
+	}
