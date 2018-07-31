@@ -27,7 +27,7 @@ public class BookController {
 		List<BookTo> listOfAllBooks = bookService.findAllBooks();
 		model.addAttribute(ModelConstants.BOOKLIST, listOfAllBooks);
 		return ViewNames.BOOKS;
-		
+
 	}
 
 	// czy tutaj moze byc ten GET czy musi byc DELETE
@@ -48,25 +48,28 @@ public class BookController {
 	public String saveBook(@ModelAttribute BookTo bookTo, Model model) {
 		model.addAttribute("newBook", new BookTo());
 		bookService.saveBook(bookTo);
+		//String message = "Book has been added successfully!";
 		return findAllBooks(model);
-		
-		//return ViewNames.BOOKS;
+
+		// return ViewNames.BOOKS;
 
 	}
 
-	@RequestMapping(value = "/{title}", method = RequestMethod.GET)
-	public String findBooksByTitle(@RequestParam("title") String title, Model model) {
-		List<BookTo> booksFoundByTitle = bookService.findBooksByTitle(title);
-		model.addAttribute(ModelConstants.BOOKBYTITLE, booksFoundByTitle);
-		return ViewNames.BOOKS;
-	}
-
-	@RequestMapping(value = "/{author}", method = RequestMethod.GET)
-	public String findBooksByAuthor(@RequestParam("author") String author, Model model) {
-		List<BookTo> booksFoundByAuthor = bookService.findBooksByAuthor(author);
-		model.addAttribute(ModelConstants.BOOKBYAUTHOR, booksFoundByAuthor);
-		return ViewNames.BOOKS;
-
-	}
+	/*
+	 * @RequestMapping(value = "/{title}", method = RequestMethod.GET) public
+	 * String findBooksByTitle(@RequestParam("title") String title, Model model)
+	 * { List<BookTo> booksFoundByTitle = bookService.findBooksByTitle(title);
+	 * model.addAttribute(ModelConstants.BOOKBYTITLE, booksFoundByTitle); return
+	 * ViewNames.BOOKS;`` }
+	 * 
+	 * @RequestMapping(value = "/{author}", method = RequestMethod.GET) public
+	 * String findBooksByAuthor(@RequestParam("author") String author, Model
+	 * model) { List<BookTo> booksFoundByAuthor =
+	 * bookService.findBooksByAuthor(author);
+	 * model.addAttribute(ModelConstants.BOOKBYAUTHOR, booksFoundByAuthor);
+	 * return ViewNames.BOOKS;
+	 * 
+	 * }
+	 */
 
 }

@@ -13,5 +13,6 @@ public final class ModelConstants implements Serializable {
 	// nazwywa sie tak jak widok!!!
 	public static final String BOOKBYTITLE = "booksByTitle";
 	public static final String BOOKBYAUTHOR = "booksByAuthor";
-	public static final String REMOVEBOOK= "removeBook";
+	public static final String REMOVEBOOK = "removeBook";
+	public static final String ERRORMESSAGE = "errorMessage";
 }
