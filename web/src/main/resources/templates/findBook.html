@@ -3,20 +3,15 @@
 	xmlns:th="http://www.thymeleaf.org"
 	layout:decorate="~{fragments/layout}">
 <head>
-<title>Add new book</title>
+<title>Find book</title>
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
 		<section>
-			<div class="jumbotron">
-				<div class="container">
-					<h1>Book</h1>
-					<p>Find book</p>
-				</div>
-			</div>
+			<div class="jumbotron"></div>
 		</section>
 		<section class="container">
-			<form action="#" th:action="@{/findBook}" th:object="${findBook}"
+			<form action="#" th:action="@{/findBook}" th:object="${foundBook}"
 				method="get" class="form-horizontal">
 				<fieldset>
 					<legend>Find book</legend>
@@ -45,6 +40,24 @@
 					</div>
 				</div>
 			</form>
+		</section>
+
+		<section th:if="${books}">
+			<th:block th:each="book : ${books}">
+				<div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+					<div class="thumbnail">
+						<div class="caption">
+							<h3 th:text="${book.id}"></h3>
+							<p th:text="${book.title}"></p>
+							<p th:text="${book.authors}"></p>
+							<p></p>
+
+						</div>
+					</div>
+				</div>
+			</th:block>
+
+
 		</section>
 	</div>
 </body>

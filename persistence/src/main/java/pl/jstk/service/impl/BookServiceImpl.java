@@ -1,6 +1,7 @@
 package pl.jstk.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class BookServiceImpl implements BookService {
 		this.bookRepository = bookRepository;
 	}
 
-	@Override
 	public List<BookTo> findAllBooks() {
 		return BookMapper.map2To(bookRepository.findAll());
 	}
@@ -58,7 +58,45 @@ public class BookServiceImpl implements BookService {
 		return BookMapper.map(bookRepository.getOne(id));
 	}
 
+	public List<BookTo> findBookByTitleOrAuthor(BookTo foundBook) {
+		String title = foundBook.getTitle();
+		String author = foundBook.getAuthors();
+		List<BookTo> listOfFoundBooks = null;
 
+		if (title != "" && author == "") {
+			List<BookTo> listByTitle = findBooksByTitle(foundBook.getTitle());
+			return listByTitle;
+		} else if (title == "" && author != "") {
+			List<BookTo> listByAuthor = findBooksByAuthor(foundBook.getTitle());
+			return listByAuthor;
+		} else if (title != "" && author != "") {
+			List<BookTo> listOfAllBooks = findAllBooks();
+			listOfAllBooks = listOfAllBooks.stream().filter(b -> b.getAuthors().equals(author))
+					.filter(t -> t.getTitle().equals(title)).collect(Collectors.toList());
+		} else if (title != "" && author == "") {
+			return listOfFoundBooks;
 
+		}
+		return listOfFoundBooks;
+	}
+	/*
+	 * public List<BookTo> findBookByTitleOrAuthor(BookTo foundBook) { String
+	 * title = foundBook.getTitle().toLowerCase(); String authors =
+	 * foundBook.getAuthors().toLowerCase(); List<BookTo> searchedBooksList =
+	 * null; if (title.equals("") && authors.equals("")) { searchedBooksList =
+	 * findAllBooks(); } if (title.equals("") && !authors.equals("")) {
+	 * searchedBooksList = findBooksByTitle(authors); } if (!title.equals("") &&
+	 * authors.equals("")) { searchedBooksList = findBooksByTitle(title); }
+	 * 
+	 * if (!title.equals("") && !authors.equals("")) { searchedBooksList =
+	 * findBooksByTitle(title); searchedBooksList = searchedBooksList.stream()
+	 * .filter(book ->
+	 * book.getAuthors().toLowerCase().contains(authors)).collect( Collectors.
+	 * toList());
+	 * 
+	 * } return searchedBooksList;
+	 * 
+	 * }
+	 */
 
 }

@@ -24,7 +24,6 @@ public class BookController {
 	@Autowired
 	BookService bookService;
 
-	@RolesAllowed({ "ADMIN", "USER" })
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
 	public String findAllBooks(Model model) {
 		List<BookTo> listOfAllBooks = bookService.findAllBooks();
@@ -64,7 +63,6 @@ public class BookController {
 	public String saveBook(@ModelAttribute BookTo bookTo, Model model) {
 		model.addAttribute("newBook", new BookTo());
 		bookService.saveBook(bookTo);
-
 		return findAllBooks(model);
 
 	}
@@ -72,8 +70,15 @@ public class BookController {
 	@RolesAllowed({ "ADMIN", "USER" })
 	@RequestMapping(value = "/books/find", method = RequestMethod.GET)
 	public String findBook(Model model) {
-		model.addAttribute("findBook", new BookTo());
+		model.addAttribute("foundBook", new BookTo());
 		return "findBook";
+	}
+
+	@RolesAllowed("ADMIN")
+	@RequestMapping(value = "findBook", method = RequestMethod.GET)
+	public String findBook(@ModelAttribute("foundBook") BookTo foundBook, Model model) {
+		model.addAttribute("books", bookService.findBookByTitleOrAuthor(foundBook));
+		return ViewNames.FOUNDBOOK;
 	}
 
 }
