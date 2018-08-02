@@ -7,8 +7,20 @@
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
+		<section th:if="${noBooks}">
+			<h1 th:text="${noBooks}"></h1>
+			<p>
+				<a th:href="@{/books}" class="btn btn-primary"> </a>
+			</p>
+		</section>
+
 		<section>
-			<div class="jumbotron"></div>
+			<div class="jumbotron">
+				<div class="container">
+					<h1>Find book</h1>
+					<p>Find your favourite book</p>
+					<p th:text="${findBook}"></p>
+				</div>
 		</section>
 		<section class="container">
 			<form action="#" th:action="@{/findBook}" th:object="${foundBook}"
@@ -56,9 +68,8 @@
 					</div>
 				</div>
 			</th:block>
-
-
 		</section>
+
 	</div>
 </body>
 </html>

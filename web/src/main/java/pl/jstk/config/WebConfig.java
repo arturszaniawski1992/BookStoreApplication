@@ -1,6 +1,7 @@
 package pl.jstk.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.filter.OrderedHiddenHttpMethodFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -33,9 +34,9 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.authorizeRequests().antMatchers("/", "/books", "/webjars/**", "/img/*", "/css/*").permitAll()
-				.anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
-				.permitAll();
+		httpSecurity.authorizeRequests().antMatchers("/", "/books", "/books/book", "/webjars/**", "/img/*", "/css/*")
+				.permitAll().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
+				.logout().permitAll();
 		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
 		httpSecurity.authorizeRequests().antMatchers("/admin/**").access("hasRole('ADMIN')").and().formLogin()
@@ -49,4 +50,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 		return new BCryptPasswordEncoder();
 	}
 
+	@Bean
+	public OrderedHiddenHttpMethodFilter hiddenHttpMethodFilter() {
+		return new OrderedHiddenHttpMethodFilter();
+	}
 }

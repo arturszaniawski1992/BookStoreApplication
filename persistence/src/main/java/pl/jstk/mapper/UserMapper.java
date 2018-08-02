@@ -29,4 +29,6 @@ public class UserMapper {
 	public static List<UserEntity> map2Entity(List<UserTo> userEntities) {
 		return userEntities.stream().map(UserMapper::map).collect(Collectors.toList());
 	}
+	
+
 }

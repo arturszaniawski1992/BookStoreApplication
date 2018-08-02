@@ -18,8 +18,6 @@ public class LoginController {
 		return "login";
 	}
 
-
-
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(Model model) {
 		return ViewNames.LOGIN;

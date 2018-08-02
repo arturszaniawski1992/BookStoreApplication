@@ -7,6 +7,13 @@
 </head>
 <body>
 	<div layout:fragment="content" th:remove="tag">
+		<section th:if="${infoRemove}">
+			<h1 th:text="${infoRemove}"></h1>
+			<p>
+				<a th:href="@{/books}" class="btn btn-primary"> </a>
+			</p>
+		</section>
+
 		<section>
 			<div class="jumbotron">
 				<div class="container">
@@ -27,20 +34,24 @@
 								<p th:text="${book.title}"></p>
 								<p th:text="${book.authors}"></p>
 								<p th:text="${book.status}">Status:</p>
+
 								<p>
 									<a th:href="@{'/books/book?id='+${book.id}}"
 										class="btn btn-primary"> <span
 										class="glyphicon-info-sign glyphicon" /></span> Details
 
-									</a> <a th:href="@{'/books/remove/book?id='+${book.id}}"
+									</a> 
+									<!-- <a th:href="@{'/books/remove/book?id='+${book.id}}"
 										class="btn btn-danger"> <span
 										class="glyphicon-info-sign glyphicon" /></span> Remove
-
-									</a>
-
-
-
+									</a> -->
 								</p>
+								<p>
+                                    <form th:method="delete" th:action="@{'/books/remove/'+${book.id}}">
+                                        <input type="hidden" name="id" th:value="${book.id}" />
+                                        <button class="button u-full-width"  type="submit">Delete</button>
+                                    </form>
+                                    </p>
 
 							</div>
 						</div>
